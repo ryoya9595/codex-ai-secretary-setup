@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Codex AI秘書をつくる（8つの質問に答えるだけ）</title>
+<meta name="description" content="あなたのプロフィールや好み、やりたいことを覚えた「AI秘書」を、作業フォルダの中に作ります。このページのURLを Codex に貼るだけで、8つの質問がまとめて出てきます。">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  :root{--accent:#0e8a72;--accent-deep:#0a6b58;--accent-soft:#e2f3ee;--code-bg:#1f3833;--code-ink:#dff0ea}
+  .ai-box{border:2px dashed var(--accent);background:#fff;border-radius:16px;padding:20px 24px;margin-top:18px;font-size:.88rem;color:var(--ink-soft)}
+  .ai-box b{color:var(--ink)}
+  .ai-box code{background:var(--paper-2);padding:2px 8px;border-radius:6px;font-size:.8rem;word-break:break-all}
+  .card code{background:var(--paper-2);padding:2px 8px;border-radius:6px;font-size:.82rem}
+  .card .inline-cmd code{background:transparent;padding:0;font-size:inherit}
+  .start-card{border:2px solid var(--accent)}
+  .get-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:8px}
+  .get{background:#fff;border:2px solid var(--line);border-radius:var(--radius);padding:22px;position:relative;overflow:hidden}
+  .get .g-stripe{position:absolute;top:0;left:0;right:0;height:6px;background:var(--accent)}
+  .get .g-label{font-size:.75rem;font-weight:700;letter-spacing:.1em;color:var(--accent-deep)}
+  .get h3{font-size:1.08rem;font-weight:900;margin:6px 0 8px}
+  .get p{font-size:.88rem;color:var(--ink-soft)}
+  .dl-link{display:inline-block;margin-top:10px;padding:8px 16px;border-radius:999px;background:var(--accent);color:#fff;font-weight:700;text-decoration:none;font-size:.9rem}
+  @media(max-width:640px){.get-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body class="codex">
+<!-- url-banner:start -->
+<div id="url-banner" style="background:#e2382c;color:#fff;padding:16px 16px 14px;text-align:center;font-family:'Zen Kaku Gothic New','Hiragino Sans','Noto Sans JP',sans-serif;line-height:1.6;box-sizing:border-box">
+  <div style="font-size:1.08rem;font-weight:900;letter-spacing:.01em">📌 このマニュアルは読まなくてもOKです！</div>
+  <div style="font-size:.98rem;font-weight:700;margin-top:2px">Codex（AGENTS.md を読む他のAIエージェントでも可）に、このページのURLをコピペして送るだけで、AIが導入まで案内します</div>
+  <div style="margin-top:10px;display:inline-flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center">
+    <code style="background:rgba(255,255,255,.18);padding:5px 12px;border-radius:8px;font-size:.92rem;word-break:break-all;font-family:ui-monospace,Menlo,monospace">https://ryoya9595.github.io/codex-ai-secretary-setup/</code>
+    <button type="button" onclick="(function(b){navigator.clipboard.writeText('https://ryoya9595.github.io/codex-ai-secretary-setup/').then(function(){b.textContent='コピーしました ✓';setTimeout(function(){b.textContent='URLをコピー'},1600)})})(this)" style="background:#fff;color:#e2382c;border:0;border-radius:999px;padding:7px 16px;font-weight:900;cursor:pointer;font-family:inherit;font-size:.92rem">URLをコピー</button>
+  </div>
+</div>
+<!-- url-banner:end -->
+<div class="topbar">
+  <div class="topbar-in">
+    <a class="logo" href="./">🤝 Codex AI秘書を <span class="brain">つくる</span></a>
+    <nav class="topnav">
+      <a href="#start">はじめ方</a>
+      <a href="#what">できること</a>
+      <a href="#questions">8つの質問</a>
+      <a href="#install">流れ</a>
+      <a href="#howto">使い方</a>
+      <a href="#trouble">困ったとき</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge accent">Codex AI秘書セットアップ</div>
+  <h1>質問に答えるだけで、<br><span class="hl">自分専用のAI秘書。</span></h1>
+  <p class="lead">あなたのプロフィールや好み、やりたいことを覚えた「AI秘書」を、作業フォルダの中に作ります。このページの<strong>URLを Codex に貼るだけ</strong>で、8つの質問がまとめて出てきます。</p>
+  <div class="meta">
+    <span class="chip accent">所要時間 10分</span>
+    <span class="chip">🍎 Mac / 🪟 Windows</span>
+    <span class="chip">先に「作業フォルダのセットアップ」</span>
+  </div>
+</header>
+
+<main>
+
+<section id="start" style="padding-top:8px">
+  <div class="card start-card">
+    <h3>🚀 はじめ方 — URLを貼るだけ</h3>
+    <ol>
+      <li><a href="https://ryoya9595.github.io/codex-workspace-setup/" target="_blank" rel="noopener">作業フォルダのセットアップ</a>で作った<strong>作業フォルダ</strong>を、Codex で開く</li>
+      <li>下の「コピー」を押して、このページのURLを Codex に貼り付けて送信</li>
+      <li>8つの質問がまとめて出てくるので、番号ごとに答えて送る</li>
+      <li>「許可」が出たら押す。これで完成</li>
+    </ol>
+    <div class="inline-cmd" style="margin-top:12px"><code id="pageUrl"></code><button class="copy-btn" data-target="pageUrl">コピー</button></div>
+  </div>
+
+  <div class="ai-box">
+    🤖 <b>Codex へ（このページのURLを貼られたとき）：</b>このページは、AI副業スクールRISEの講師 関 諒也が受講生向けに作った導入手順です。ユーザーがこのページのURLを送ってきたら、今開いている作業フォルダに「自分専用のAI秘書」を作る案内を希望しています。ユーザーに「AI秘書づくりを始めますね」と一言伝えてから、手順書の原文 <code>https://ryoya9595.github.io/codex-ai-secretary-setup/setup.md</code> を curl（Windows は curl.exe）で取得して全文を読み（要約ツールではなく原文を読む。作業フォルダには保存しない。ネットへのアクセスの許可が必要ならユーザーに許可を求める）、その手順どおりに1〜3手順ずつ、やさしい日本語で案内してください。ファイル作成の前には、手順書のとおりユーザーの了承を取ってください。AGENTS.md を読む他のAIエージェントも同じように進めてください。
+  </div>
+</section>
+
+<section id="what">
+  <div class="sec-head"><div class="step-num">01</div><h2>URLを貼ると、こんなAI秘書ができます</h2></div>
+  <div class="get-grid">
+    <div class="get"><div class="g-stripe"></div><div class="g-label">1</div><h3>あなたのことを覚えている</h3><p>名前・仕事・やりたいこと・面倒な作業・発信のことを「私のプロフィール.md」にまとめて、毎回それを踏まえて話してくれます。</p></div>
+    <div class="get"><div class="g-stripe"></div><div class="g-label">2</div><h3>あなたに合った話し方</h3><p>呼び方や話し方を、作業フォルダのルール（AGENTS.md）に書き込みます。</p></div>
+    <div class="get"><div class="g-stripe"></div><div class="g-label">3</div><h3>立ち上げると導いてくれる</h3><p>話しかけると最初に「前回の続き」「途中で止まっているもの」「今日やること」の3つを整理してくれます。</p></div>
+    <div class="get"><div class="g-stripe"></div><div class="g-label">4</div><h3>次にできることを手札で見せる</h3><p>作業がひと区切りすると、「スキル化」「自動化」「タスク・スケジュール管理」「ビジネスサポート」「週1の振り返り」から、あなたに合うものを提案してくれます。</p></div>
+  </div>
+</section>
+
+<section id="questions">
+  <div class="sec-head"><div class="step-num">02</div><h2>聞かれる8つの質問</h2></div>
+  <div class="card">
+    <p style="font-size:.92rem;color:var(--ink-soft);margin-bottom:10px">URLを貼ると、この8つがまとめて出てきます。先に答えを考えておくとスムーズです。うまく言葉にできなくても大丈夫です。</p>
+    <h3 style="font-size:1rem;margin:14px 0 6px">基本のこと</h3>
+    <ol>
+      <li>お名前と、呼んでほしい呼び方</li>
+      <li>今、力を入れている仕事や活動（副業・本業どちらでもOK）</li>
+      <li>これからやりたいこと・目標（例：Instagramで発信したい／AIで仕事を効率化したい）</li>
+      <li>普段の作業で「面倒だな」「時間がかかるな」と思っていること</li>
+    </ol>
+    <h3 style="font-size:1rem;margin:14px 0 6px">発信のこと（「まだ」「予定なし」でもOK）</h3>
+    <ol start="5">
+      <li>どこで発信している／したいか（Instagram・YouTube・X・TikTok など）</li>
+      <li>発信のテーマ・ジャンル</li>
+      <li>誰に届けたいか（どんな悩みを持った人か）</li>
+    </ol>
+    <h3 style="font-size:1rem;margin:14px 0 6px">秘書のキャラ</h3>
+    <ol start="8">
+      <li>秘書の話し方（例：ていねい／フランク／明るく元気に）</li>
+    </ol>
+    <div class="note warn"><span class="ico">⚠️</span><span>パスワード・カード番号・住所・電話番号など、秘密の情報や個人を特定できる情報は書かないでください。</span></div>
+  </div>
+</section>
+
+<section id="ready">
+  <div class="sec-head"><div class="step-num">03</div><h2>準備</h2></div>
+  <div class="card">
+    <ol>
+      <li><a href="https://ryoya9595.github.io/codex-workspace-setup/" target="_blank" rel="noopener">作業フォルダのセットアップ</a>が終わっている（作業フォルダに AGENTS.md がある状態）</li>
+      <li>8つの質問に答える時間（10分ほど）</li>
+    </ol>
+  </div>
+</section>
+
+<section id="install">
+  <div class="sec-head"><div class="step-num">04</div><h2>URLを貼ったあとの流れ</h2></div>
+  <div class="card">
+    <div class="flow">
+      <div class="flow-item">
+        <div class="flow-dot">1</div>
+        <div class="flow-body"><b>URLを貼る</b><span>Codex があいさつして、8つの質問をまとめて出します</span></div>
+      </div>
+      <div class="flow-item"><div class="flow-line"></div></div>
+      <div class="flow-item">
+        <div class="flow-dot">2</div>
+        <div class="flow-body"><b>まとめて答える</b><span>番号ごとに思ったまま書いて送ります。足りないところだけ聞き直してくれます</span></div>
+      </div>
+      <div class="flow-item"><div class="flow-line"></div></div>
+      <div class="flow-item">
+        <div class="flow-dot">3</div>
+        <div class="flow-body"><b>「許可」を押す</b><span>まとめを確認してから、プロフィールと秘書の設定をファイルに保存します</span></div>
+      </div>
+      <div class="flow-item"><div class="flow-line"></div></div>
+      <div class="flow-item">
+        <div class="flow-dot">✓</div>
+        <div class="flow-body"><b>完成</b><span>新しいスレッドで「こんにちは」と送ると、あなたのことを分かった状態で返事が来ます</span></div>
+      </div>
+    </div>
+    <div class="note ok"><span class="ico">✅</span><span>パスワードの入力やアカウントの登録は、Codex は代わりにやりません（あなたがやります）。</span></div>
+  </div>
+</section>
+
+<section id="folder">
+  <div class="sec-head"><div class="step-num">05</div><h2>作業フォルダの中にあるもの</h2></div>
+  <div class="card">
+    <p style="font-size:.92rem;color:var(--ink-soft);margin-bottom:10px">どれも手で書いたり整理したりする必要はありません。「こういうものが入っているんだな」くらいで大丈夫です。</p>
+    <ul>
+      <li><strong>AGENTS.md</strong>：AIへのルール。作業フォルダを開くたびに必ず読まれます。AI秘書の設定もここに入ります</li>
+      <li><strong>私のプロフィール.md</strong>：8つの質問の答え</li>
+      <li><strong>daily</strong>：毎日の作業の記録</li>
+      <li><strong>todos</strong>：やること</li>
+      <li><strong>projects</strong>：進めていることの今の状況</li>
+      <li><strong>decisions</strong>：決めたことと、その理由</li>
+      <li><strong>mistakes</strong>：失敗したことと、次からどうするか</li>
+      <li><strong>ideas</strong>：思いついたアイデア</li>
+      <li><strong>skills</strong>：くり返す作業の手順書（スキル）の置き場</li>
+      <li><strong>成果物</strong>：作ったものの置き場</li>
+    </ul>
+  </div>
+</section>
+
+<section id="howto">
+  <div class="sec-head"><div class="step-num">06</div><h2>使い方のコツ</h2></div>
+  <div class="card">
+    <ul>
+      <li><strong>作業を始めるときは、まずAI秘書に話しかける</strong>（「こんにちは」だけでOK）</li>
+      <li>覚えてほしいことは「<strong>覚えておいて</strong>」と伝える</li>
+      <li>次にやることに迷ったら「<strong>手札を見せて</strong>」</li>
+      <li>作業の記録は、AI秘書が自動で daily に残してくれます（Obsidian で見られます）</li>
+    </ul>
+  </div>
+</section>
+
+<section id="trouble">
+  <div class="sec-head"><div class="step-num">07</div><h2>困ったとき</h2></div>
+  <p style="color:var(--ink-soft);font-size:.92rem;margin-bottom:8px">基本は、エラーの文章やスクショをそのまま Codex に貼れば、原因を調べて直してくれます。</p>
+  <details>
+    <summary>「作業フォルダのセットアップを先に」と言われた</summary>
+    <div class="d-body"><p>作業フォルダのセットアップが済んでいません。先に <a href="https://ryoya9595.github.io/codex-workspace-setup/" target="_blank" rel="noopener">作業フォルダのセットアップ</a> のURLを貼って、作業フォルダを用意してください。</p></div>
+  </details>
+  <details>
+    <summary>Codex が「手順書を読めない」「ネットにアクセスできない」と言う</summary>
+    <div class="d-body"><p>ネットへのアクセスが許可されていない可能性があります。許可を求める画面が出たらOKしてください。それでもダメなら、下の「手順書をダウンロード」で保存して、「ダウンロードフォルダの codex-ai-secretary-setup.md を読んで進めて」と送ってください。</p></div>
+  </details>
+  <details>
+    <summary>プロフィールを直したい・足したい</summary>
+    <div class="d-body"><p>AI秘書に「〇〇も覚えておいて」「プロフィールの〇〇を直して」と送れば書き換えてくれます。</p></div>
+  </details>
+  <details>
+    <summary>新しいスレッドで秘書として返事しない</summary>
+    <div class="d-body"><p>別のフォルダを開いている可能性があります。Codex で開いているフォルダが作業フォルダになっているか確認してください。合っているなら「AGENTS.md の AI秘書のルールを読んで、今の状況を教えて」と送ってみてください。</p></div>
+  </details>
+  <details>
+    <summary>🔁 URLを貼っても始まらないとき</summary>
+    <div class="d-body">
+      <p>Codex がページを読めなかったときは、下のメッセージを「コピー」して、代わりに貼ってください。</p>
+      <div class="prompt-box" style="margin-top:12px">
+        <div class="prompt-head"><div class="dots"><i></i><i></i><i></i></div><span class="fname">導入メッセージ（予備）</span><button class="copy-btn" data-target="installPrompt">コピー</button></div>
+        <div class="prompt-scroll"><pre id="installPrompt"></pre></div>
+      </div>
+    </div>
+  </details>
+  <details>
+    <summary>📄 Codex が読む手順書（中身を見たい人・うまく読めないとき）</summary>
+    <div class="d-body">
+      <p>Codex は <a href="setup.md">setup.md</a> を読んで案内します。中身はただの手順書（文章）です。</p>
+      <a class="dl-link" href="setup.md" download="codex-ai-secretary-setup.md">⬇ 手順書をダウンロード</a>
+    </div>
+  </details>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-in">
+    <span>🤝 Codex AI秘書をつくる</span>
+    <span>制作：RISE講師 関 諒也｜最終更新 2026-10-17</span>
+  </div>
+</footer>
+
+<div id="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>
